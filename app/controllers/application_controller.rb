@@ -1,6 +1,18 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def after_sign_in_path_for(resource)
+    about_path
+  # after_sign_in_path_for: Deviseが用意しているメソッドで、
+  # サインイン後にどこに遷移するかを設定しているメソッド
+  end
+  
+  def after_sign_out_path_for(resource)
+    about_path
+    # after_sign_out_path_for: Deviseが用意しているメソッドで
+    # サインアウト後にどこに遷移するかを設定するメソッド
+  end
+
   protected
 
   def configure_permitted_parameters
