@@ -11,9 +11,15 @@
   </head>
 
   <body>
+    <!--全てのhtmlに共通するヘッダー-->
     <% if user_signed_in? %> 
     <!--devise 側で用意しているヘルパーメソッド-->
     <!--ログインしている時としていない時で表示を分ける-->
+      <li>
+        <!--投稿フォームへのリンク-->
+        <%= link_to '投稿フォーム', new_post_image_path %>
+      </li>
+     
       <li>
         <!--ログイン済みの場合にブラウザに表示-->
         <%= link_to "ログアウト", destroy_user_session_path,method: :delete %>

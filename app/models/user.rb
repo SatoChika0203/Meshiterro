@@ -19,4 +19,17 @@ class User < ApplicationRecord
 # dependent: :destroy : 1:Nの1側が削除されたとき、N側を全て削除する
 #   依存    :  削除
 
+  has_one_attached :profile_image
+# profile_imageという名前でActiveStorageでプロフィール画像を保存できるように設定
+  
+  def get_profile_image(width, height)
+  # 画像が登録されていない場合のエラー回避
+    unless profile_image.attached?
+      file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
+      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+    profile_image.variant(resize_to_limit: [width, height]).processed
+      #画像サイズの変更 　
+  end
+
 end
