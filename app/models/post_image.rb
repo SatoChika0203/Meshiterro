@@ -7,6 +7,8 @@ class PostImage < ApplicationRecord
   # 1:N の「N」側にあたるモデルに、belongs_to を記載する
   # 1 つの User モデルに関連付けられるため、単数形の「user」にする
   
+  has_many :post_comments, dependent: :destroy
+  # PostCommentモデルを複数持つ 
   
   # 画像が存在しない場合に表示する画像をActiveStorageに格納する
   def get_image

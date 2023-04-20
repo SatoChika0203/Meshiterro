@@ -28,6 +28,8 @@ class PostImagesController < ApplicationController
   def show
     # 詳細画面
     @post_image=PostImage.find(params[:id])
+    # コメントを投稿する
+    @post_comment=PostComment.new
   end
   
   def destroy

@@ -19,6 +19,10 @@
         <!--投稿フォームへのリンク-->
         <%= link_to '投稿フォーム', new_post_image_path %>
       </li>
+      <li>
+        <!--マイページへのリンク-->
+        <%= link_to 'マイページ', user_path(current_user.id) %>
+      </li>
      
       <li>
         <!--ログイン済みの場合にブラウザに表示-->
