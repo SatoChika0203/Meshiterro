@@ -11,18 +11,26 @@ class PostImagesController < ApplicationController
     # フォームに入力されたデータが、インスタンス変数に格納される
     @post_image.user_id=current_user.id
     # user_idは、画像投稿を行う際に、投稿したユーザーをユーザーの ID で判断する
-    # @post_image.user_id　: PostImage モデルに紐づくカラムの値を取得したり、逆に値を代入することができる
+    # @post_image.user_id: PostImage モデルに紐づくカラムの値を取得したり、逆に値を代入することができる
     # current_user : ログイン中のユーザー情報を取得することができる
     # @post_image(投稿データ)のuser_idを、current_user.id(今ログインしているユーザーの ID)に
     # 指定することで投稿データに、今ログイン中のユーザーの ID を持たせることができる
-    @post_image.save
-    redirect_to post_images_path
-    # 投稿一覧画面へリダイレクト
+    
+    if @post_image.save
+      redirect_to post_images_path
+      # もし対象のカラムにデータが保存されたら、投稿一覧画面へリダイレクト
+    else
+      render :new
+    end
   end
 
   def index
     # タイムライン上に表示する全ての画像を取得する
-    @post_images=PostImage.all
+    # @post_images=PostImage.all
+    
+     @post_images = PostImage.page(params[:page])
+    # 1ページ分の決められた数のデータだけを、新しい順に取得する
+    # pageメソッド:kaminariをインストールしたことで使用可能になったメソッド
   end
 
   def show

@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   def show
     @user=User.find(params[:id])
     # idに関連付けられているUserモデルのレコード全てを取得する
-    @post_images = @user.post_images
-    # 特定のユーザ（@user）に関連付けられた投稿全て（.post_images）を取得し
+    @post_images = @user.post_images.page(params[:page])
+    # 特定のユーザ（@user）に関連付けられた投稿を、決められた分だけ（.post_images）を取得
     # @post_imagesに渡す という処理を行う
   end
 

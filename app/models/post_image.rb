@@ -12,6 +12,10 @@ class PostImage < ApplicationRecord
   
   has_many :favorites, dependent: :destroy
   
+  validates :shop_name, presence: true
+  validates :image, presence: true
+  # バリテーション：入力されたデータのpresence（存在）をチェック
+  
   # 画像が存在しない場合に表示する画像をActiveStorageに格納する
   def get_image
     unless image.attached?

@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user!, except: [:top]
+  # バリテーション
+  # :authenticate_user!：ログイン認証されていなければ、ログイン画面へリダイレクトする
+  # except：トップページのみログイン状態に関わらず、アクセス可能
   before_action :configure_permitted_parameters, if: :devise_controller?
-
+  # before_actionメソッド：このコントローラが動作する前に実行される
+  
   def after_sign_in_path_for(resource)
     post_images_path
   # after_sign_in_path_for: Deviseが用意しているメソッドで、
