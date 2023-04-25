@@ -15,7 +15,22 @@
  <!--もし画像の投稿ユーザーが、ログインしているユーザーだったら-->
   <%= link_to "削除", post_image_path(@post_image), method: :delete %>
   <%end%>
-    
+  
+    <% if @post_image.favorited_by?(current_user) %>
+    <p>
+      <%= link_to post_image_favorites_path(@post_image), method: :delete do %>
+        ♥<%= @post_image.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to post_image_favorites_path(@post_image), method: :post do %>
+        ♡<%= @post_image.favorites.count %> いいね
+    <% end %>
+    </p>
+  <% end %>
+  </div>
+  
   <!--投稿画像の詳細画面で、コメントも投稿できるようにする-->
   <div>
     <p>コメント件数：<%= @post_image.post_comments.count %></p>
@@ -33,9 +48,8 @@
   <div>
    <%= form_with model: [@post_image, @post_comment] do |f| %>
   <!--コメントは、post_imageに結びついたpost_commentであるため、2つ用意する必要あり-->
-　<!--post_commentをcreateするためのリクエストは、ルーティングもネストしているため、上記2つの情報が必要-->
+  <!--post_commentをcreateするためのリクエストは、ルーティングもネストしているため、上記2つの情報が必要-->
     <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
     <%= f.submit "送信する" %>
   <% end %>
-</div>
 </div>

@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def edit
     @user=User.find(params[:id])
+    # 「params[:id]」：URLに含まれる:idを取得できる
   end
   
   def update
